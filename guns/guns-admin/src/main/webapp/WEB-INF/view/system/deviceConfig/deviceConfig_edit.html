@@ -1,0 +1,49 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" value="${item.id}" underline="true"/>
+                            <#input id="type" name="设备类型（1：手机 2：电脑）" value="${item.type}" underline="true"/>
+                            <#input id="systemVersion" name="系统版本" value="${item.systemVersion}" underline="true"/>
+                            <#input id="gyroscope" name="陀螺仪（1：有 2：无）" value="${item.gyroscope}" underline="true"/>
+                            <#input id="barometric" name="气压传感器（1：有 2：无）" value="${item.barometric}" underline="true"/>
+                            <#input id="geomagnetic" name="地磁旋转矢量传感器（1：有 2：无）" value="${item.geomagnetic}" underline="true"/>
+                            <#input id="acceleration" name="加速度传感器（1：有 2：无）" value="${item.acceleration}" underline="true"/>
+                            <#input id="temperature" name="温度传感器（1：有 2：无）" value="${item.temperature}" underline="true"/>
+                            <#input id="gravity" name="重力传感器（1：有 2：无）" value="${item.gravity}" underline="true"/>
+                            <#input id="heartRate" name="心率传感器（1：有 2：无）" value="${item.heartRate}" underline="true"/>
+                            <#input id="light" name="光线传感器（1：有 2：无）" value="${item.light}" underline="true"/>
+                            <#input id="linearAcceleration" name="线性加速度传感器（1：有 2：无）" value="${item.linearAcceleration}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="magneticField" name="磁场传感器（1：有 2：无）" value="${item.magneticField}" underline="true"/>
+                            <#input id="direction" name="方向传感器（1：有 2：无）" value="${item.direction}" underline="true"/>
+                            <#input id="pressure" name="压力传感器（1：有 2：无）" value="${item.pressure}" underline="true"/>
+                            <#input id="humidity" name="湿度传感器（1：有 2：无）" value="${item.humidity}" underline="true"/>
+                            <#input id="rotationVector" name="旋转矢量传感器（1：有 2：无）" value="${item.rotationVector}" underline="true"/>
+                            <#input id="step" name="计步传感器（1：有 2：无）" value="${item.step}" underline="true"/>
+                            <#input id="walk" name="步行检测传感器（1：有 2：无）" value="${item.walk}" underline="true"/>
+                            <#input id="rearCamera" name="后置摄像头数量（1 2 3 4）" value="${item.rearCamera}" underline="true"/>
+                            <#input id="frontCamera" name="前置摄像头数量（1 2 3）" value="${item.frontCamera}" underline="true"/>
+                            <#input id="faceRecognition" name="人脸识别（1：有 2：无）" value="${item.faceRecognition}" underline="true"/>
+                            <#input id="fingerprint" name="指纹识别（1：有 2：无）" value="${item.fingerprint}" underline="true"/>
+                            <#input id="iris" name="虹膜识别（1：有 2：无）" value="${item.iris}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="DeviceConfigInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="DeviceConfigInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/deviceConfig/deviceConfig_info.js"></script>
+@}

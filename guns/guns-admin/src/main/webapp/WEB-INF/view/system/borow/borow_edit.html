@@ -1,0 +1,30 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" value="${item.id}" underline="true"/>
+                            <#input id="deviceid" name="设备id" value="${item.deviceid}" underline="true"/>
+                            <#input id="userid" name="借用者id" value="${item.userid}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="borrowtime" name="借出时间" value="${item.borrowtime}" underline="true"/>
+                            <#input id="returntime" name="预计归还时间" value="${item.returntime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="BorowInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="BorowInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/borow/borow_info.js"></script>
+@}

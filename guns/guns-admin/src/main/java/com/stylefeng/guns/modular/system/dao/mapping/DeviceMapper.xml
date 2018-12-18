@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.DeviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Device">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="buyTime" property="buyTime" />
+        <result column="configid" property="configid" />
+        <result column="count" property="count" />
+        <result column="deptid" property="deptid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, buyTime, configid, count, deptid
+    </sql>
+
+    <select id="selectDevices" resultType="map">
+        select
+        <include refid="Base_Column_List" />
+        from sys_device
+    </select>
+
+    <!-- 添加用户信息 -->
+    <insert id="insertDevice">
+        insert into sys_device(<include refid="Base_Column_List"/>)
+        values
+        (#{id},#{name},#{buyTime},#{configid},#{count},#{deptid})
+    </insert>
+
+</mapper>

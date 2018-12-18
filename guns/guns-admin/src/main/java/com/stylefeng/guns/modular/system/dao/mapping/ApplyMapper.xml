@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.ApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Apply">
+        <id column="id" property="id" />
+        <result column="applyerid" property="applyerid" />
+        <result column="title" property="title" />
+        <result column="body" property="body" />
+        <result column="applytime" property="applytime" />
+        <result column="readed" property="readed" />
+        <result column="handled" property="handled" />
+        <result column="agreed" property="agreed" />
+    </resultMap>
+
+     <!--通用查询结果列-->
+    <sql id="Base_Column_List">
+        id, applyerid, title, body, applytime, readed, handled, agreed
+    </sql>
+
+    <select id="list" resultType="map">
+        select * from sys_apply
+        <if test="condition != null and condition != ''">
+            where title like CONCAT('%',#{condition},'%') or content like CONCAT('%',#{condition},'%')
+        </if>
+        where handled=2
+        order by applytime DESC
+    </select>
+
+    <select id="listHandledApply" resultType="map">
+        select * from sys_apply
+        <if test="condition != null and condition != ''">
+            where title like CONCAT('%',#{condition},'%') or content like CONCAT('%',#{condition},'%')
+        </if>
+        where handled=1
+        order by applytime DESC
+    </select>
+
+    <!-- 添加审批信息 -->
+    <insert id="insertApply">
+        insert into sys_apply(<include refid="Base_Column_List"/>)
+        values
+        (#{id},#{applyerid},#{title},#{body},#{applytime},#{readed},#{handled},#{agreed})
+    </insert>
+
+
+</mapper>

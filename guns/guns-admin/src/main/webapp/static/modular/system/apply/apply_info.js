@@ -1,0 +1,138 @@
+/**
+ * 初始化申请详情对话框
+ */
+var ApplyInfoDlg = {
+    applyInfoData : {},
+    editor: null,
+    validateFields: {
+        title: {
+            validators: {
+                notEmpty: {
+                    message: '申请主题不能为空'
+                }
+            }
+        }
+    }
+};
+
+/**
+ * 清除数据
+ */
+ApplyInfoDlg.clearData = function() {
+    this.applyInfoData = {};
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+ApplyInfoDlg.set = function(key, val) {
+    this.applyInfoData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
+    return this;
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+ApplyInfoDlg.get = function(key) {
+    return $("#" + key).val();
+}
+
+/**
+ * 关闭此对话框
+ */
+ApplyInfoDlg.close = function() {
+    parent.layer.close(window.parent.Apply.layerIndex);
+}
+
+/**
+ * 收集数据
+ */
+ApplyInfoDlg.collectData = function() {
+    this.applyInfoData['body'] = ApplyInfoDlg.editor.txt.html();
+    console.log(ApplyInfoDlg.editor.txt.html());
+    this.set('id').set('title');
+}
+
+/**
+ * 验证数据是否为空
+ */
+ApplyInfoDlg.validate = function () {
+    $('#applyInfoForm').data("bootstrapValidator").resetForm();
+    $('#applyInfoForm').bootstrapValidator('validate');
+    return $("#applyInfoForm").data('bootstrapValidator').isValid();
+};
+
+/**
+ * 提交添加
+ */
+ApplyInfoDlg.addSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    if (!this.validate()) {
+        return;
+    }
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/apply/add", function(data){
+        Feng.success("添加成功!");
+        window.parent.Apply.table.refresh();
+        ApplyInfoDlg.close();
+    },function(data){
+        Feng.error("添加失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.applyInfoData);
+    ajax.start();
+}
+
+/**
+ * 提交修改
+ */
+ApplyInfoDlg.editSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    // if (!this.validate()) {
+    //     return;
+    // }
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/apply/update", function(data){
+        Feng.success("修改成功!");
+        window.parent.Apply.table.refresh();
+        ApplyInfoDlg.close();
+    },function(data){
+        Feng.error("修改失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.applyInfoData);
+    ajax.start();
+}
+
+/**
+ * 提交修改
+ */
+ApplyInfoDlg.accept = function() {
+
+}
+
+$(function() {
+    Feng.initValidator("applyInfoForm", ApplyInfoDlg.validateFields);
+
+    //初始化编辑器
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.create();
+    editor.txt.html($("#bodyVal").val());
+    ApplyInfoDlg.editor = editor;
+
+    $("#title").val($("#titleVal").val());
+
+});
